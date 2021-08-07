@@ -1,0 +1,100 @@
+﻿<dx:ThemedWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:local="clr-namespace:DXMultiBinding01"
+    x:Class="DXMultiBinding01.MainWindow"
+    Title="MainWindow" Height="600" Width="800">
+    <dx:ThemedWindow.DataContext>
+        <local:MainWindowViewModel/>
+    </dx:ThemedWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="524*"/>
+        </Grid.RowDefinitions>
+        <Button Content="Refresh" Click="Button_Click" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+        <dxg:GridControl x:Name="grid0"
+                         Grid.Row="1"
+                         ItemsSource="{Binding Products}">
+            <dxg:GridControl.View>
+                <dxg:TableView x:Name="tblview0"
+                               ShowGroupPanel="False"
+                               EditorShowMode="Default"
+                               EnableImmediatePosting="False"
+                               CellValueChanging="tblview0_CellValueChanging">
+                    <dxg:TableView.RowStyle>
+                        <Style TargetType="dxg:RowControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Row.IsMine}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Row.IsEmergency}" Value="True">
+                                    <Setter Property="Background" Value="Orange"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Row.IsMine}" Value="True"/>
+                                        <Condition Binding="{Binding Row.IsEmergency}" Value="True"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Background" Value="Red"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dxg:TableView.RowStyle>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="IsMine" Header="소유주" HorizontalHeaderContentAlignment="Center">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <dxe:CheckEdit x:Name="PART_Editor"
+                                           AllowNullInput="False"
+                                           HorizontalAlignment="Center"/>
+                            <!--IsChecked="{Binding Data.IsMine}"-->
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn FieldName="IsEmergency" Header="긴급" HorizontalHeaderContentAlignment="Center">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <dxe:CheckEdit x:Name="PART_Editor"
+                                           AllowNullInput="False"
+                                           HorizontalAlignment="Center"/>
+                            <!--IsChecked="{Binding Data.IsEmergency}"-->
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn FieldName="pName" Header="제품명" HorizontalHeaderContentAlignment="Center">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <dxe:TextEdit x:Name="PART_Editor" HorizontalContentAlignment="Center"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn FieldName="pCateIdx" Header="카테고리" HorizontalHeaderContentAlignment="Center">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <dxe:ComboBoxEdit x:Name="PART_Editor"
+                                              ItemsSource="{Binding RowData.Row.pCates}"
+                                              IsTextEditable="False"
+                                              ValueMember="Key"
+                                              DisplayMember="Value"
+                                              HorizontalContentAlignment="Center"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+            </dxg:GridControl.Columns>
+        </dxg:GridControl>
+    </Grid>
+</dx:ThemedWindow>
