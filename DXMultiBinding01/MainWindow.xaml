@@ -15,7 +15,7 @@
             <RowDefinition Height="45*"/>
             <RowDefinition Height="524*"/>
         </Grid.RowDefinitions>
-        <Button Content="Refresh" Click="Button_Click" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+        <Button Content="Button1" Click="Button_Click" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
         <dxg:GridControl x:Name="grid0"
                          Grid.Row="1"
                          ItemsSource="{Binding Products}">

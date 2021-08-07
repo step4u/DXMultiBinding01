@@ -15,7 +15,9 @@ namespace DXMultiBinding01
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            var row = (Product)grid0.GetRow(0);
+            row.IsMine = true;
+            row.IsEmergency = true;
         }
 
         private void tblview0_CellValueChanging(object sender, DevExpress.Xpf.Grid.CellValueChangedEventArgs e)
