@@ -4,7 +4,7 @@
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-    xmlns:local="clr-namespace:DXMultiBinding01"
+    xmlns:local="clr-namespace:DXMultiBinding01" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     x:Class="DXMultiBinding01.MainWindow"
     Title="MainWindow" Height="600" Width="800">
     <dx:ThemedWindow.DataContext>
@@ -62,6 +62,9 @@
                             </Style.Triggers>
                         </Style>
                     </dxg:TableView.RowStyle>
+                    <!--<dxmvvm:Interaction.Behaviors>
+                        <dxmvvm:EventToCommand EventName="MouseDown" Command="{Binding CheckedCommand}" PassEventArgsToCommand="True"/>
+                    </dxmvvm:Interaction.Behaviors>-->
                 </dxg:TableView>
             </dxg:GridControl.View>
             <dxg:GridControl.Columns>
@@ -81,8 +84,10 @@
                         <DataTemplate>
                             <dxe:CheckEdit x:Name="PART_Editor"
                                            AllowNullInput="False"
-                                           HorizontalAlignment="Center"/>
-                            <!--IsChecked="{Binding Data.IsEmergency}"-->
+                                           HorizontalAlignment="Center">
+                                <!--IsChecked="{Binding Data.IsEmergency}"-->
+                            </dxe:CheckEdit>
+                            
                         </DataTemplate>
                     </dxg:GridColumn.CellTemplate>
                 </dxg:GridColumn>

@@ -6,6 +6,8 @@ namespace DXMultiBinding01
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public DelegateCommand<object> CheckedCommand { get; private set; }
+
         public MainWindowViewModel()
         {
             Products = new BindingList<Product>();
@@ -18,11 +20,18 @@ namespace DXMultiBinding01
             Products.Add(new Product() { IsEmergency = false, IsMine = false, pCateIdx = 4, pId = "5", pName = "제품명5" });
             Products.Add(new Product() { IsEmergency = true, IsMine = false, pCateIdx = 3, pId = "6", pName = "제품명6" });
             Products.Add(new Product() { IsEmergency = false, IsMine = true, pCateIdx = 2, pId = "7", pName = "제품명7" });
+
+            CheckedCommand = new DelegateCommand<object>(Checked);
         }
 
         private void Products_ListChanged(object sender, ListChangedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine(">>>>>>>>>> Products_ListChanged is raised.");
+        }
+
+        private void Checked(object obj)
+        {
+            System.Diagnostics.Debug.WriteLine($">>>>>>>>>> Checked is ran. : {obj}");
         }
 
         public BindingList<Product> Products { get; set; }

@@ -1,5 +1,6 @@
 ﻿using DevExpress.Xpf.Core;
 using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Editors.Settings;
 using DevExpress.Xpf.Grid;
 using System.Windows;
 
@@ -32,9 +33,15 @@ namespace DXMultiBinding01
         private void tblview0_CellValueChanging(object sender, DevExpress.Xpf.Grid.CellValueChangedEventArgs e)
         {
             var view = (TableView)e.OriginalSource;
-            if (e.Column.FieldName == "IsMine" || e.Column.FieldName == "IsEmergency" || e.Column.FieldName == "pCateIdx")
+            if (e.Column.FieldName == "IsMine" || e.Column.FieldName == "IsEmergency")
             {
                 tblview0.CommitEditing();
+                System.Diagnostics.Debug.WriteLine($"tblview0_CellValueChanging => {e.Value}");
+            }
+            else if (e.Column.FieldName == "pCateIdx")
+            {
+                tblview0.CommitEditing();
+                System.Diagnostics.Debug.WriteLine($"tblview0_CellValueChanging => {e.Value}");
             }
             else
             {
