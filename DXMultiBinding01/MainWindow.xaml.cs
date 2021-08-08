@@ -1,4 +1,6 @@
 ﻿using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Grid;
 using System.Windows;
 
 namespace DXMultiBinding01
@@ -11,6 +13,13 @@ namespace DXMultiBinding01
         public MainWindow()
         {
             InitializeComponent();
+
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // tblview0.BestFitColumns();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -22,6 +31,7 @@ namespace DXMultiBinding01
 
         private void tblview0_CellValueChanging(object sender, DevExpress.Xpf.Grid.CellValueChangedEventArgs e)
         {
+            var view = (TableView)e.OriginalSource;
             if (e.Column.FieldName == "IsMine" || e.Column.FieldName == "IsEmergency" || e.Column.FieldName == "pCateIdx")
             {
                 tblview0.CommitEditing();

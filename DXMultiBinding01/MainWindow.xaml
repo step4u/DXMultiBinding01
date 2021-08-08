@@ -10,6 +10,9 @@
     <dx:ThemedWindow.DataContext>
         <local:MainWindowViewModel/>
     </dx:ThemedWindow.DataContext>
+    <dx:ThemedWindow.Resources>
+        <local:MyConverter x:Key="MyConverter"/>
+    </dx:ThemedWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45*"/>
@@ -46,6 +49,16 @@
                                         <Setter Property="Foreground" Value="Black"/>
                                     </MultiDataTrigger.Setters>
                                 </MultiDataTrigger>
+                                <!--<DataTrigger Value="True">
+                                    <DataTrigger.Binding>
+                                        <MultiBinding Converter="{StaticResource MyConverter}">
+                                            <Binding Path="Row.IsMine"/>
+                                            <Binding Path="Row.IsEmergency"/>
+                                        </MultiBinding>
+                                    </DataTrigger.Binding>
+                                    <Setter Property="Background" Value="Red"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                </DataTrigger>-->
                             </Style.Triggers>
                         </Style>
                     </dxg:TableView.RowStyle>
